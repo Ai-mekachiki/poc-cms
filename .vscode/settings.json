@@ -1,0 +1,5 @@
+{
+  "deno.enable": true,
+  "deno.config": "lume/deno.json",
+  "deno.enablePaths": ["lume"]
+}
