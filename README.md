@@ -23,3 +23,7 @@ interface ReleaseNote {
 Directusのコンソールで、Flowを作る。
 
 ![flow](flow.png)
+
+DirectusのContentエディタではボタンが表示される。
+
+![build](build.png)
