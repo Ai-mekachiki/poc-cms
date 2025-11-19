@@ -5,7 +5,7 @@ type Options = {
 };
 
 export default defineOperationApi<Options>({
-	id: 'build-lume',
+	id: 'build-lume', // これはapp.tsで書いたものと同じものを書くきまり。
 	handler: ({ text }) => {
 		console.log(text);
 	},
