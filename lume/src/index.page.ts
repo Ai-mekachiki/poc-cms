@@ -1,27 +1,26 @@
-interface InformationData extends Lume.Data {
-  information: {
-    year: string;
-    text: string;
-    link?: string;
-  }[];
+import { createDirectus, rest, readItems } from "directus";
+
+export interface ReleaseNote {
+    id: number;
+    Title: string;
+    ReleaseDate: string;
+    Contents: string;
 }
 
-export default function* (data: InformationData) {
-  const sorted = data.information.sort((a, b) => (
-    Date.parse(b.year) - Date.parse(a.year)
-  ));
+export async function directus() {
+    const directus = createDirectus("http://0.0.0.0:8055/").with(rest());
+    return await directus.request<ReleaseNote[]>(readItems("ReleaseNote"));
+}
 
-  const latest = sorted[0];
-  for (
-    const page of data.paginate(sorted, {
-      url: (n) => (n === 1 ? "/information/" : `/information/${n}/`),
-      size: 10,
-    })
-  ) {
-    const n = page.pagination.page;
-    page.title = `お知らせ${n === 1 ? "" : `(${n})`} | クリップクロウ`;
-    page.layout = "layouts/information.tsx";
-    page.description = `${latest.year}: ${latest.text}`;
-    yield page;
+export const layout = "layouts/base.tsx";
+
+export default async function* () {
+  const data = await directus();
+  console.log(data);
+  for (const page of data) {
+    yield {
+      url: `/${page.id}/`,
+      ...page
+    };
   }
 }
