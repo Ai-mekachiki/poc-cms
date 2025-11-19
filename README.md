@@ -19,3 +19,7 @@ interface ReleaseNote {
 }
 ```
 ![screen](screen.png)
+
+Directusのコンソールで、Flowを作る。
+
+![flow](flow.png)
